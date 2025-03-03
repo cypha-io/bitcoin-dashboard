@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { List, ListItem, ListItemText, ListItemIcon, Divider, Avatar, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PaymentIcon from '@mui/icons-material/Payment';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const UserSidebar = () => {
   return (
@@ -20,11 +21,17 @@ const UserSidebar = () => {
           </ListItemIcon>
           <ListItemText primary="User Dashboard" primaryTypographyProps={{ style: { fontFamily: 'Arial', marginLeft: '10px' } }} />
         </ListItem>
-        <ListItem button component={NavLink} to="/transactions" style={{ justifyContent: 'center', width: '100%' }}>
+        <ListItem button component={NavLink} to="/user-dashboard/transactions" style={{ justifyContent: 'center', width: '100%' }}>
           <ListItemIcon style={{ minWidth: 'auto' }}>
             <PaymentIcon style={{ color: 'white' }} />
           </ListItemIcon>
           <ListItemText primary="Transactions" primaryTypographyProps={{ style: { fontFamily: 'Arial', marginLeft: '10px' } }} />
+        </ListItem>
+        <ListItem button component={NavLink} to="/logout" style={{ justifyContent: 'center', width: '100%' }}>
+          <ListItemIcon style={{ minWidth: 'auto' }}>
+            <ExitToAppIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Logout" primaryTypographyProps={{ style: { fontFamily: 'Arial', marginLeft: '10px' } }} />
         </ListItem>
       </List>
     </div>

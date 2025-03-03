@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomeLayout from './components/HomeLayout';
 import AdminLayout from './components/AdminLayout';
-import UserSidebar from './components/UserSidebar';
+import UserLayout from './components/UserLayout';
 import Home from './components/Home';
 import AdminDashboard from './components/AdminDashboard';
 import UserDashboard from './components/UserDashboard';
@@ -21,22 +21,18 @@ function App() {
         <Route path="/" element={<HomeLayout><Home /></HomeLayout>} />
         <Route path="/contact" element={<HomeLayout><Contact /></HomeLayout>} />
         <Route path="/support" element={<HomeLayout><Support /></HomeLayout>} />
-        <Route path="/admin/*" element={<AdminLayout />} />
-        <Route path="/user-dashboard/*" element={<UserSidebar />} />
+        <Route path="/admin-dashboard/*" element={<AdminLayout />}>
+          <Route path="" element={<AdminDashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="transactions" element={<Transactions />} />
+          <Route path="btc" element={<BTC />} />
+          <Route path="manage-payment-apis" element={<ManagePaymentAPIs />} />
+        </Route>
+        <Route path="/user-dashboard/*" element={<UserLayout />}>
+          <Route path="" element={<UserDashboard />} />
+          <Route path="transactions" element={<Transactions />} />
+        </Route>
       </Routes>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div style={{ flex: 1, overflow: 'hidden' }}>
-          <Routes>
-            <Route path="/admin-dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
-            <Route path="/admin/users" element={<AdminLayout><Users /></AdminLayout>} />
-            <Route path="/admin/transactions" element={<AdminLayout><Transactions /></AdminLayout>} />
-            <Route path="/admin/btc" element={<AdminLayout><BTC /></AdminLayout>} />
-            <Route path="/admin/manage-payment-apis" element={<AdminLayout><ManagePaymentAPIs /></AdminLayout>} />
-            <Route path="/user-dashboard/:userId" element={<UserDashboard />} />
-            {/* Add more routes here */}
-          </Routes>
-        </div>
-      </div>
     </Router>
   );
 }

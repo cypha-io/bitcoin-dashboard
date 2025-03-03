@@ -57,9 +57,9 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Container maxWidth="lg" className="Admin-dashboard" style={{ backgroundColor: '#f7931a' }}>
-      <Typography variant="h4" component="h1" gutterBottom style={{ fontFamily: 'Roboto', fontSize: '1.5rem', color: 'white' }}>
-        Good day, <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>{userName}</span>
+    <Container maxWidth="lg" className="Admin-dashboard" style={{ backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <Typography variant="h4" component="h1" gutterBottom style={{ fontFamily: 'Roboto', fontSize: '1.0rem', color: 'orange' }}>
+        Good day, <span style={{  fontWeight: 'bold' }}>{userName}</span>
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>

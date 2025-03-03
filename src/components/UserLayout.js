@@ -1,11 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import AdminSidebar from './AdminSidebar';
+import UserSidebar from './UserSidebar';
 
-const AdminLayout = () => {
+const UserLayout = () => {
   return (
     <div className="App">
-      <AdminSidebar />
+      <UserSidebar />
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, overflow: 'hidden' }}>
           <Outlet />
@@ -15,4 +15,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default UserLayout;
