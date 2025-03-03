@@ -1,6 +1,8 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Avatar, Menu, MenuItem, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Avatar, Menu, MenuItem, IconButton, InputBase, Badge } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,6 +21,21 @@ const Navbar = () => {
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Admin Dashboard
         </Typography>
+        <div className="search-bar">
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <SearchIcon />
+            <InputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              style={{ marginLeft: 8, color: 'inherit' }}
+            />
+          </div>
+        </div>
+        <IconButton color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
         <div className="user-info">
           <IconButton
             edge="end"

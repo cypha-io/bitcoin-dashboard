@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Paper, Typography, Button } from '@mui/material';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import '../App.css';
 
 const AdminDashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalTransactions, setTotalTransactions] = useState(0);
   const [totalBTC, setTotalBTC] = useState(0);
-  const [chartData, setChartData] = useState([]);
+  const [recentTransactions, setRecentTransactions] = useState([]);
+  const [recentUsers, setRecentUsers] = useState([]);
 
   useEffect(() => {
     // Fetch real-time data from the backend
@@ -18,7 +18,8 @@ const AdminDashboard = () => {
       setTotalUsers(data.totalUsers);
       setTotalTransactions(data.totalTransactions);
       setTotalBTC(data.totalBTC);
-      setChartData(data.chartData); // Assuming chartData is part of the response
+      setRecentTransactions(data.recentTransactions);
+      setRecentUsers(data.recentUsers);
     };
 
     fetchData();
@@ -36,13 +37,14 @@ const AdminDashboard = () => {
     setTotalUsers(data.totalUsers);
     setTotalTransactions(data.totalTransactions);
     setTotalBTC(data.totalBTC);
-    setChartData(data.chartData); // Assuming chartData is part of the response
+    setRecentTransactions(data.recentTransactions);
+    setRecentUsers(data.recentUsers);
   };
 
   return (
     <Container maxWidth="lg" className="Admin-dashboard">
       <Typography variant="h3" component="h1" gutterBottom>
-        Admin Dashboard
+        {/* Admin Dashboard */}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
@@ -70,15 +72,32 @@ const AdminDashboard = () => {
           </Paper>
         </Grid>
       </Grid>
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={chartData}>
-          <Line type="monotone" dataKey="value" stroke="#8884d8" />
-          <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-        </LineChart>
-      </ResponsiveContainer>
+      <Grid container spacing={3} style={{ marginTop: '20px' }}>
+        <Grid item xs={12} sm={6}>
+          <Paper className="stat" elevation={3}>
+            <Typography variant="h5" component="h2">
+              Recent Transactions
+            </Typography>
+            <ul>
+              {recentTransactions.map((transaction, index) => (
+                <li key={index}>{transaction}</li>
+              ))}
+            </ul>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Paper className="stat" elevation={3}>
+            <Typography variant="h5" component="h2">
+              Recent Users
+            </Typography>
+            <ul>
+              {recentUsers.map((user, index) => (
+                <li key={index}>{user}</li>
+              ))}
+            </ul>
+          </Paper>
+        </Grid>
+      </Grid>
       <Grid container spacing={3} className="actions" justifyContent="center" style={{ marginTop: '20px' }}>
         <Grid item>
           <Button variant="contained" color="primary" onClick={handleRefresh}>

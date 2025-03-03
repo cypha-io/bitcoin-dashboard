@@ -1,6 +1,14 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
 .App {
   text-align: center;
   display: flex;
+  height: 100%;
 }
 
 .App-logo {
@@ -39,14 +47,15 @@
 }
 
 .Admin-dashboard {
-  background-color: #f5f5f5;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px;
   width: calc(100% - 250px);
+  padding: 20px;
+  overflow-y: hidden; /* Prevent scrolling */
+  transition: width 0.3s;
+  background-color: #fff; /* Remove gray background */
+}
+
+.Admin-dashboard.collapsed {
+  width: calc(100% - 80px);
 }
 
 .Admin-dashboard h1 {
@@ -58,18 +67,19 @@
 .Admin-dashboard .stats {
   display: flex;
   justify-content: space-around;
-  width: 100%;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .Admin-dashboard .stats .stat {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   width: 30%;
   text-align: center;
   transition: transform 0.3s;
+  margin: 10px;
 }
 
 .Admin-dashboard .stats .stat:hover {
@@ -88,6 +98,8 @@
 
 .Admin-dashboard .actions {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .Admin-dashboard .actions button {
@@ -106,24 +118,20 @@
   background-color: #21a1f1;
 }
 
-.stat {
-  padding: 20px;
-  text-align: center;
-}
-
-.actions {
-  margin-top: 20px;
-}
-
 .Sidebar {
   width: 250px;
-  background-color: #282c34;
+  background-color: #1A1F28;
   color: white;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
+  transition: width 0.3s;
+}
+
+.Sidebar.collapsed {
+  width: 80px;
 }
 
 .Sidebar a {
@@ -134,7 +142,17 @@
 }
 
 .Sidebar a:hover {
-  text-decoration: underline;
+  background: linear-gradient(90deg, rgba(33, 150, 243, 1) 0%, rgba(3, 169, 244, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.Sidebar .MuiListItemText-root {
+  display: none;
+}
+
+.Sidebar:not(.collapsed) .MuiListItemText-root {
+  display: block;
 }
 
 .Navbar {
@@ -145,6 +163,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  transition: width 0.3s;
+}
+
+.Navbar.collapsed {
+  width: calc(100% - 80px);
+}
+
+.Navbar .search-bar {
+  flex-grow: 1;
+  margin: 0 20px;
 }
 
 .Navbar .user-info {

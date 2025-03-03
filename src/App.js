@@ -10,12 +10,14 @@ function App() {
     <Router>
       <div className="App">
         <Sidebar />
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '100%' }}>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<AdminDashboard />} />
-            {/* Add more routes here */}
-          </Routes>
+          <div style={{ flex: 1, overflow: 'hidden' }}>
+            <Routes>
+              <Route path="/" element={<AdminDashboard />} />
+              {/* Add more routes here */}
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>

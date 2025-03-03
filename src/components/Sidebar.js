@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemIcon, IconButton } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
-    <div className="Sidebar">
+    <div className={`Sidebar ${collapsed ? 'collapsed' : ''}`}>
+      <IconButton onClick={toggleSidebar} style={{ color: 'white' }}>
+        <MenuIcon />
+      </IconButton>
       <List>
         <ListItem button component={NavLink} to="/" exact>
           <ListItemIcon>
