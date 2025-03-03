@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Paper, Typography, Button } from '@mui/material';
+import { Container, Grid, Paper, Typography, Button, Card, CardContent, CardHeader, Avatar, TextField } from '@mui/material';
+import PeopleIcon from '@mui/icons-material/People';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const AdminDashboard = () => {
@@ -8,6 +16,9 @@ const AdminDashboard = () => {
   const [totalBTC, setTotalBTC] = useState(0);
   const [recentTransactions, setRecentTransactions] = useState([]);
   const [recentUsers, setRecentUsers] = useState([]);
+  const [userId, setUserId] = useState('');
+  const userName = "User Name"; // Replace with dynamic user name if available
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch real-time data from the backend
@@ -41,78 +52,114 @@ const AdminDashboard = () => {
     setRecentUsers(data.recentUsers);
   };
 
+  const handleUserDashboard = () => {
+    navigate(`/user-dashboard/${userId}`);
+  };
+
   return (
-    <Container maxWidth="lg" className="Admin-dashboard">
-      <Typography variant="h3" component="h1" gutterBottom>
-        {/* Admin Dashboard */}
+    <Container maxWidth="lg" className="Admin-dashboard" style={{ backgroundColor: '#f7931a' }}>
+      <Typography variant="h4" component="h1" gutterBottom style={{ fontFamily: 'Roboto', fontSize: '1.5rem', color: 'white' }}>
+        Good day, <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>{userName}</span>
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
-          <Paper className="stat" elevation={3}>
-            <Typography variant="h5" component="h2">
-              Total Users
-            </Typography>
-            <Typography variant="body1">{totalUsers}</Typography>
-          </Paper>
+          <Card className="stat" elevation={3}>
+            <CardHeader
+              avatar={<Avatar style={{ backgroundColor: '#f7931a' }}><PeopleIcon /></Avatar>}
+              title="Total Users"
+              titleTypographyProps={{ variant: 'h6', style: { fontFamily: 'Roboto', fontSize: '1.25rem' } }}
+            />
+            <CardContent>
+              <Typography variant="body2" style={{ fontFamily: 'Roboto', fontSize: '1rem' }}>{totalUsers}</Typography>
+              <Button variant="contained" color="primary" startIcon={<PersonAddIcon />} style={{ backgroundColor: '#f7931a', marginTop: '10px' }}>
+                Add User
+              </Button>
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className="stat" elevation={3}>
-            <Typography variant="h5" component="h2">
-              Total Transactions
-            </Typography>
-            <Typography variant="body1">{totalTransactions}</Typography>
-          </Paper>
+          <Card className="stat" elevation={3}>
+            <CardHeader
+              avatar={<Avatar style={{ backgroundColor: '#f7931a' }}><PaymentIcon /></Avatar>}
+              title="Total Transactions"
+              titleTypographyProps={{ variant: 'h6', style: { fontFamily: 'Roboto', fontSize: '1.25rem' } }}
+            />
+            <CardContent>
+              <Typography variant="body2" style={{ fontFamily: 'Roboto', fontSize: '1rem' }}>GH₵ {totalTransactions}</Typography>
+              <Button variant="contained" color="primary" startIcon={<AddShoppingCartIcon />} style={{ backgroundColor: '#f7931a', marginTop: '10px' }}>
+                Add Transaction
+              </Button>
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className="stat" elevation={3}>
-            <Typography variant="h5" component="h2">
-              Total BTC Managed
-            </Typography>
-            <Typography variant="body1">{totalBTC} BTC</Typography>
-          </Paper>
+          <Card className="stat" elevation={3}>
+            <CardHeader
+              avatar={<Avatar style={{ backgroundColor: '#f7931a' }}><AccountBalanceWalletIcon /></Avatar>}
+              title="Total BTC Managed"
+              titleTypographyProps={{ variant: 'h6', style: { fontFamily: 'Roboto', fontSize: '1.25rem' } }}
+            />
+            <CardContent>
+              <Typography variant="body2" style={{ fontFamily: 'Roboto', fontSize: '1rem' }}>{totalBTC} BTC</Typography>
+              <Button variant="contained" color="primary" startIcon={<RefreshIcon />} onClick={handleRefresh} style={{ backgroundColor: '#f7931a', marginTop: '10px' }}>
+                Refresh
+              </Button>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
       <Grid container spacing={3} style={{ marginTop: '20px' }}>
         <Grid item xs={12} sm={6}>
-          <Paper className="stat" elevation={3}>
-            <Typography variant="h5" component="h2">
-              Recent Transactions
-            </Typography>
-            <ul>
-              {recentTransactions.map((transaction, index) => (
-                <li key={index}>{transaction}</li>
-              ))}
-            </ul>
-          </Paper>
+          <Card className="stat" elevation={3}>
+            <CardHeader
+              title="Recent Transactions"
+              titleTypographyProps={{ variant: 'h6', style: { fontFamily: 'Roboto', fontSize: '1.25rem' } }}
+            />
+            <CardContent>
+              <ul>
+                {recentTransactions.map((transaction, index) => (
+                  <li key={index} style={{ fontFamily: 'Roboto', fontSize: '1rem' }}>{transaction}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className="stat" elevation={3}>
-            <Typography variant="h5" component="h2">
-              Recent Users
-            </Typography>
-            <ul>
-              {recentUsers.map((user, index) => (
-                <li key={index}>{user}</li>
-              ))}
-            </ul>
-          </Paper>
+          <Card className="stat" elevation={3}>
+            <CardHeader
+              title="Recent Users"
+              titleTypographyProps={{ variant: 'h6', style: { fontFamily: 'Roboto', fontSize: '1.25rem' } }}
+            />
+            <CardContent>
+              <ul>
+                {recentUsers.map((user, index) => (
+                  <li key={index} style={{ fontFamily: 'Roboto', fontSize: '1rem' }}>{user}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
-      <Grid container spacing={3} className="actions" justifyContent="center" style={{ marginTop: '20px' }}>
-        <Grid item>
-          <Button variant="contained" color="primary" onClick={handleRefresh}>
-            Refresh
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" color="secondary" onClick={() => alert('Add User')}>
-            Add User
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" color="secondary" onClick={() => alert('Add Transaction')}>
-            Add Transaction
-          </Button>
+      <Grid container spacing={3} style={{ marginTop: '20px' }}>
+        <Grid item xs={12}>
+          <Card className="stat" elevation={3}>
+            <CardHeader
+              title="Open User Dashboard"
+              titleTypographyProps={{ variant: 'h6', style: { fontFamily: 'Roboto', fontSize: '1.25rem' } }}
+            />
+            <CardContent>
+              <TextField
+                label="User ID"
+                variant="outlined"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                style={{ marginBottom: '10px' }}
+              />
+              <Button variant="contained" color="primary" startIcon={<SearchIcon />} onClick={handleUserDashboard} style={{ backgroundColor: '#f7931a' }}>
+                Open Dashboard
+              </Button>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </Container>
